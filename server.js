@@ -47,6 +47,7 @@ app.use(cors({
       "http://192.168.5.62:5001",
       "https://atmalogicerp.vercel.app",
       "https://erp-frontend-amber.vercel.app",
+      "http://192.168.5.62:60116",
       "file://",
       "app://-",
       "app://."
@@ -71,7 +72,8 @@ app.use(cors({
 
 
 
-const PORT = process.env.PORT || 5001;
+const PORT = 4001;
+
 
 app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello from backend!' });
