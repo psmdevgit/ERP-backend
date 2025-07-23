@@ -36,42 +36,72 @@ app.use(express.urlencoded({
   extended: true,
   parameterLimit: 50000 
 }));
-
+app.options("*", cors()); 
 //cors
 
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     const allowedOrigins = [
+//       "http://192.168.5.62:3000",
+//       "http://49.207.185.229:3000",
+//       "http://192.168.5.62:5001",
+//       "https://atmalogicerp.vercel.app",
+//       "https://erp-frontend-amber.vercel.app",
+//       "file://",
+//       "app://-",
+//       "app://."
+//     ];
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   credentials: true, // Allow credentials (cookies, authorization headers)
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
+//   allowedHeaders: [
+//     "Content-Type", 
+//     "Authorization", 
+//     "Origin",
+//     "X-Requested-With",
+//     "Accept"
+//   ], // Allowed headers
+//   exposedHeaders: ["set-cookie"]
+// }));
+
+const allowedOrigins = [
+  "http://192.168.5.62:3000",
+  "http://49.207.185.229:3000",
+  "http://192.168.5.62:5001",
+  "https://atmalogicerp.vercel.app",
+  "https://erp-frontend-amber.vercel.app",
+  "file://",
+  "app://-",
+  "app://."
+];
+
 app.use(cors({
-  origin: (origin, callback) => {
-    const allowedOrigins = [
-      "http://192.168.5.62:3000",
-      "http://49.207.185.229:3000",
-      "http://192.168.5.62:5001",
-      "https://atmalogicerp.vercel.app",
-      "https://erp-frontend-amber.vercel.app",
-      "file://",
-      "app://-",
-      "app://."
-    ];
+  origin: function (origin, callback) {
+    console.log("CORS Origin:", origin); // log to debug in Vercel
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("CORS: Not allowed"));
     }
   },
-  credentials: true, // Allow credentials (cookies, authorization headers)
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: [
-    "Content-Type", 
-    "Authorization", 
+    "Content-Type",
+    "Authorization",
     "Origin",
     "X-Requested-With",
     "Accept"
-  ], // Allowed headers
+  ],
   exposedHeaders: ["set-cookie"]
 }));
 
-
-
-const PORT = 4001;
+const PORT = process.env.PORT || 5001;
 
 
 app.get('/api/hello', (req, res) => {
