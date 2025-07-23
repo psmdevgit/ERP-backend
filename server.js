@@ -47,7 +47,6 @@ app.use(cors({
       "http://192.168.5.62:5001",
       "https://atmalogicerp.vercel.app",
       "https://erp-frontend-amber.vercel.app",
-      "http://192.168.5.62:60116",
       "file://",
       "app://-",
       "app://."
